@@ -22,7 +22,8 @@ final class KeychainManager {
         let deleteQuery: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
-            kSecAttrAccount as String: account
+            kSecAttrAccount as String: account,
+            kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlocked
         ]
         SecItemDelete(deleteQuery as CFDictionary)
 
@@ -31,6 +32,7 @@ final class KeychainManager {
             kSecAttrService as String: service,
             kSecAttrAccount as String: account,
             kSecValueData as String: data,
+            kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlocked
         ]
 
         let status = SecItemAdd(addQuery as CFDictionary, nil)
@@ -48,7 +50,8 @@ final class KeychainManager {
             kSecAttrService as String: service,
             kSecAttrAccount as String: account,
             kSecReturnData as String: true,
-            kSecMatchLimit as String: kSecMatchLimitOne
+            kSecMatchLimit as String: kSecMatchLimitOne,
+            kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlocked
         ]
 
         var item: CFTypeRef?
